@@ -1,4 +1,4 @@
-import decorator from'@onehilltech/decorator';
+import decorator from '@onehilltech/decorator';
 import override from '@onehilltech/override';
 
 // @deepLink ('auth.password')
