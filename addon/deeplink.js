@@ -1,15 +1,24 @@
 import decorator from '@onehilltech/decorator';
 import override from '@onehilltech/override';
 
-// @deepLink ('auth.password')
-function deepLink (target, name, descriptor, options) {
+/**
+ * The deeplink decorator.
+ *
+ * Usage: @deeplink ('password.reset')
+ *
+ * @param target
+ * @param name
+ * @param descriptor
+ * @param deepLinkName
+ */
+function deepLink (target, name, descriptor, deepLinkName) {
   override (target, 'activate', function () {
     this._super.call (this, ...arguments);
-    this.deeplinks.subscribe (options, target[name].bind (this));
+    this.deeplinks.subscribe (deepLinkName, target[name].bind (this));
 
     override (target, 'deactivate', function () {
       this._super.call (this, ...arguments);
-      this.deeplinks.unsubscribe (options);
+      this.deeplinks.unsubscribe (deepLinkName);
     });
   });
 }
